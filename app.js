@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const { initializeApp } = require("firebase/app");
-const { getFirestore, collection, addDoc } = require("firebase/firestore");
 
 // Load environment variables
 dotenv.config();
@@ -20,7 +19,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
-const db = getFirestore(firebaseApp);
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -29,30 +27,15 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static("public"));
 
-// URL routes
-// QR page
-app.get(["/", "/qr/", "/qr/:value/"], (req, res) => {
-  const value = req.params.value || "No value provided";
-  // You can pass the value to your QR page using a template engine or as a query parameter
-  res.sendFile(__dirname + "/public/qr_page.html");
-});
+// Import and use routes
+const routes = require("./routes")(firebaseApp);
+app.use(routes);
 
-// Example Firebase write
-app.get("/write-to-firebase/", async (req, res) => {
-  try {
-    await addDoc(collection(db, "myCollection"), { key: "value" });
-    res.send("Data written to Firebase");
-  } catch (error) {
-    console.error("Error writing to Firebase:", error);
-    res.status(500).send("Error writing to Firebase");
+app.use((req, res, next) => {
+  if (req.path.endsWith(".js")) {
+    res.type("application/javascript");
   }
-});
-
-// Path: app.js
-
-app.post("/api", (req, res) => {
-  console.log(req.body); // Log the request body
-  res.json({ message: "Data received", receivedData: req.body });
+  next();
 });
 
 // Handle 404

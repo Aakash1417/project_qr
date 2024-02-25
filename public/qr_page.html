@@ -25,52 +25,23 @@
         id="search-input"
         placeholder="Enter value to search"
       />
-      <button onclick="search()">Search</button>
+      <button id="search-button">Search</button>
     </div>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js"></script>
-    <script>
-      // Extract the value from the URL
-      const value = window.location.pathname.split("/qr/")[1];
-      const postData = async (url = "", data = {}) => {
-        const response = await fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        });
-
-        if (response.ok) {
-          return response.json();
-        } else {
-          // Handle non-JSON responses or errors
-          throw new Error("Server responded with a non-OK status");
-        }
-      };
-
-      async function searchDocument(searchValue) {
-        const data = await postData("/api", { searchValue });
-        console.log(data);
-        document.getElementById("content").innerText = JSON.stringify(
-          data.receivedData
-        );
-      }
-
-      function search() {
-        const searchValue = document.getElementById("search-input").value;
-        searchDocument("hi");
-      }
-
-      if (value) {
-        // If there is a value in the URL, retrieve the document and display its contents
-        document.getElementById("value").innerText = value;
-        searchDocument(value);
-      } else {
-        // If no value is passed, show a search bar and a search button
-        document.getElementById("value").innerText = "No value provided";
-        document.getElementById("search-container").style.display = "block";
-      }
-    </script>
   </body>
+  <script>
+    document.getElementById("search-container").style.display = "block";
+    // event listeners
+    document
+      .getElementById("search-input")
+      .addEventListener("keyup", (event) => {
+        if (event.key === "Enter") {
+          search();
+        }
+      });
+    document.getElementById("search-button").addEventListener("click", () => {
+      window.location.href = `/qr/${
+        document.getElementById("search-input").value
+      }`;
+    });
+  </script>
 </html>
