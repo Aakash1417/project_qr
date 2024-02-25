@@ -1,47 +1,49 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>QR Page</title>
-    <style>
-      /* Add your CSS styles here */
-      body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        height: 100vh;
-      }
-      #search-container {
-        margin-top: 20px;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="qr-value">QR Value: <span id="value"></span></div>
-    <div id="content"></div>
-    <div id="search-container" style="display: none">
-      <input
-        type="text"
-        id="search-input"
-        placeholder="Enter value to search"
-      />
-      <button id="search-button">Search</button>
-    </div>
-  </body>
-  <script>
-    document.getElementById("search-container").style.display = "block";
-    // event listeners
-    document
-      .getElementById("search-input")
-      .addEventListener("keyup", (event) => {
-        if (event.key === "Enter") {
-          search();
-        }
-      });
-    document.getElementById("search-button").addEventListener("click", () => {
-      window.location.href = `/qr/${
-        document.getElementById("search-input").value
-      }`;
-    });
-  </script>
+    <head>
+        <title>QR Page</title>
+        <style>
+            /* Add your CSS styles here */
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                height: 100vh;
+            }
+            #search-container {
+                margin-top: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="qr-value">QR Value: <span id="value"></span></div>
+        <div id="content"></div>
+        <div id="search-container" style="display: none">
+            <input
+                type="text"
+                id="search-input"
+                placeholder="Enter value to search"
+            />
+            <button id="search-button">Search</button>
+        </div>
+    </body>
+    <script>
+        document.getElementById("search-container").style.display = "block";
+        // event listeners
+        document
+            .getElementById("search-input")
+            .addEventListener("keyup", (event) => {
+                if (event.key === "Enter") {
+                    search();
+                }
+            });
+        document
+            .getElementById("search-button")
+            .addEventListener("click", () => {
+                window.location.href = `/qr/${
+                    document.getElementById("search-input").value
+                }`;
+            });
+    </script>
 </html>
