@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const { initializeApp } = require("firebase/app");
+const path = require("path");
 
 // Load environment variables
 dotenv.config();
@@ -26,6 +27,7 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(cors());
 app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Import and use routes
 const routes = require("./routes")(firebaseApp);
