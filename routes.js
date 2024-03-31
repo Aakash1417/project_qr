@@ -6,7 +6,7 @@ const {
     where,
     getDocs,
 } = require("firebase/firestore");
-const StudyData = require("./public/studyData");
+const StudyData = require("./public/StudyData");
 
 const router = express.Router();
 
@@ -37,9 +37,20 @@ function routes(firebaseApp) {
                 const data = doc.data();
                 const studyData = new StudyData({
                     id: doc.id,
-                    title: data.title,
-                    description: data.description,
-                    author: data.author,
+                    utilityOperation: data.utilityOperation,
+                    workingDistance: data.workingDistance,
+                    incidentEnergy: data.incidentEnergy,
+                    arcFlashBoundary: data.arcFlashBoundary,
+                    shockHazard: data.shockHazard,
+                    limitedApproach: data.limitedApproach,
+                    restrictedApproach: data.restrictedApproach,
+                    gloveClass: data.gloveClass,
+                    gloveVrating: data.gloveVrating,
+                    equipment: data.equipment,
+                    analysisBy: data.analysisBy,
+                    date: data.date,
+                    standard: data.standard,
+                    file: data.file,
                 });
                 studyDataList.push(studyData);
             });
