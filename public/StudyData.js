@@ -6,7 +6,6 @@ class StudyData {
         this.author = author;
     }
 
-    // You can add methods here to manipulate or display the data
 }
 
 module.exports = StudyData;

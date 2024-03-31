@@ -6,7 +6,7 @@ const {
     where,
     getDocs,
 } = require("firebase/firestore");
-const StudyData = require("./public/studyData");
+const StudyData = require("./public/StudyData");
 
 const router = express.Router();
 

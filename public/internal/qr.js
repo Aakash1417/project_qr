@@ -22,17 +22,39 @@ function updateTable(tableClassName, jsonData) {
 }
 
 async function searchDocument(searchValue) {
-    const spinner = document.getElementById("loading-spinner");
+    const spinner = document.getElementById("spinner");
     if (spinner) {
         spinner.style.display = "block";
     }
 
     try {
         const data = await postData("/api", { searchValue });
-        console.log(data);
-        document.getElementById("content-container").innerHTML = JSON.stringify(
-            data.receivedData
-        );
+        console.log(data.receivedData[0]); // TODO: Remove this line
+
+        // document.getElementById("content-container").innerHTML = JSON.stringify(
+        //     data.receivedData
+        // );
+        const tableRef1 = document.getElementById("contentTable1");
+        const tableRef2 = document.getElementById("contentTable2");
+
+        const arcflashData = {
+            "Working Distance": "Value for Working Distance",
+            "Incident Energy": "Value for Incident Energy",
+            "Arc Flash Protection Boundary":
+                "Value for Arc Flash Protection Boundary",
+            "Available Fault Current": "Value for Available Fault Current",
+        };
+
+        const shockData = {
+            "Shock Hazard When Cover is Removed": "Value for Shock Hazard",
+            "Limited Approach": "Value for Limited Approach",
+            "Restricted Approach": "Value for Restricted Approach",
+            "Glove Class": "Value for Glove Class",
+            "Glove V-rating": "Value for Glove V-rating",
+        };
+
+        addStudyDataToTable(tableRef1, arcflashData, "Arc Flash Protection");
+        addStudyDataToTable(tableRef2, shockData, "Shock Protection");
     } catch (error) {
         console.error("Error:", error);
     } finally {
@@ -40,6 +62,29 @@ async function searchDocument(searchValue) {
             spinner.style.display = "none";
         }
     }
+}
+
+function addStudyDataToTable(tableRef, studyData, title) {
+    let tr = document.createElement("tr");
+    let th = document.createElement("th");
+    th.className = "title";
+    th.textContent = title;
+    tr.appendChild(th);
+    tableRef.appendChild(tr);
+
+    Object.entries(studyData).forEach(([key, value]) => {
+        tr = document.createElement("tr");
+
+        let label = document.createElement("th");
+        label.textContent = key;
+        tr.appendChild(label);
+
+        let input = document.createElement("td");
+        input.textContent = value;
+        tr.appendChild(input);
+
+        tableRef.appendChild(tr);
+    });
 }
 
 window.onload = () => {
