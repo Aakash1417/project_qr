@@ -31,9 +31,6 @@ async function searchDocument(searchValue) {
         const data = await postData("/api", { searchValue });
         console.log(data.receivedData[0]); // TODO: Remove this line
 
-        // document.getElementById("content-container").innerHTML = JSON.stringify(
-        //     data.receivedData
-        // );
         const tableRef1 = document.getElementById("contentTable1");
         const tableRef2 = document.getElementById("contentTable2");
 
