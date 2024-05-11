@@ -1,7 +1,7 @@
 class StudyData {
     constructor({
         id,
-        utilityOperation,
+        dangerType,
         workingDistance,
         incidentEnergy,
         arcFlashBoundary,
@@ -17,7 +17,7 @@ class StudyData {
         file,
     }) {
         this.id = id;
-        this.utilityOperation = utilityOperation;
+        this.dangerType = dangerType;
         this.workingDistance = workingDistance;
         this.incidentEnergy = incidentEnergy;
         this.arcFlashBoundary = arcFlashBoundary;
@@ -25,9 +25,7 @@ class StudyData {
         this.limitedApproach = limitedApproach;
         this.restrictedApproach = restrictedApproach;
         this.gloveClass = gloveClass;
-        this.gloveVrating = gloveVrating;
         this.equipment = equipment;
-        this.analysisBy = analysisBy;
         this.date = date;
         this.standard = standard;
         this.file = file;
